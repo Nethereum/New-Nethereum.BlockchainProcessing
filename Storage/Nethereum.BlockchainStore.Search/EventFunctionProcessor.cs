@@ -61,7 +61,7 @@ namespace Nethereum.BlockchainStore.Search
             {
                 var code = await _web3.Eth.GetCode.SendRequestAsync(receipt.ContractAddress).ConfigureAwait(false);
                 var contractCreationFailure = (code == null) || (code == "0x");
-                var contactCreationTransaction = new ContractCreationTransaction(
+                var contactCreationTransaction = new ContractCreationVO(
                     receipt.ContractAddress,
                     code,
                     transaction,
@@ -77,7 +77,7 @@ namespace Nethereum.BlockchainStore.Search
             }
             else
             {
-                var txWithReceipt = new TransactionWithReceipt(
+                var txWithReceipt = new TransactionReceiptVO(
                     transaction,
                     receipt,
                     !receipt.Succeeded(),

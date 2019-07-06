@@ -24,7 +24,7 @@ namespace Nethereum.BlockchainStore.Repositories.Handlers
             _addressTransactionRepository = addressTransactionRepository;
         }
 
-        public async Task HandleContractCreationTransactionAsync(ContractCreationTransaction tx)
+        public async Task HandleContractCreationTransactionAsync(ContractCreationVO tx)
         {
             await _transactionRepository.UpsertAsync(
                 tx.ContractAddress, 
@@ -42,7 +42,7 @@ namespace Nethereum.BlockchainStore.Repositories.Handlers
                 contractAddress: tx.ContractAddress ?? tx.TransactionReceipt.ContractAddress);
         }
 
-        public async Task HandleTransactionAsync(TransactionWithReceipt tx)
+        public async Task HandleTransactionAsync(TransactionReceiptVO tx)
         {
             await
                 _transactionRepository.UpsertAsync(

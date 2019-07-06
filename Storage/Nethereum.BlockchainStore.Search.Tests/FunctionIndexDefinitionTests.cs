@@ -187,7 +187,7 @@ namespace Nethereum.BlockchainStore.Search.Tests
                 .Where(f => f.IsPresetSearchField()).ToArray());
         }
 
-        private static TransactionWithReceipt CreateDummyTransaction()
+        private static TransactionReceiptVO CreateDummyTransaction()
         {
             var tx =  new Transaction
             {
@@ -204,7 +204,7 @@ namespace Nethereum.BlockchainStore.Search.Tests
                 TransactionIndex = new HexBigInteger(1)
             };
 
-            return new TransactionWithReceipt(tx, new TransactionReceipt(), false,
+            return new TransactionReceiptVO(tx, new TransactionReceipt(), false,
                 new HexBigInteger(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
         }
 

@@ -42,12 +42,12 @@ namespace Nethereum.BlockchainStore.Search
         public IFunctionIndexer<TFunctionMessage> FunctionIndexer { get; }
 
         public Task HandleContractCreationTransactionAsync(
-            ContractCreationTransaction contractCreationTransaction) => HandleAsync(contractCreationTransaction);
+            ContractCreationVO contractCreationTransaction) => HandleAsync(contractCreationTransaction);
 
-        public Task HandleTransactionAsync(TransactionWithReceipt transactionWithReceipt) =>
+        public Task HandleTransactionAsync(TransactionReceiptVO transactionWithReceipt) =>
             HandleAsync(transactionWithReceipt);
 
-        private async Task HandleAsync(TransactionWithReceipt transactionWithReceipt)
+        private async Task HandleAsync(TransactionReceiptVO transactionWithReceipt)
         {
             try
             {

@@ -6,13 +6,13 @@ namespace Nethereum.BlockchainStore.Search
 {
     public struct FunctionCall<TDto> where TDto : FunctionMessage, new()
     {
-        public FunctionCall(TransactionWithReceipt tx, TDto dto)
+        public FunctionCall(TransactionReceiptVO tx, TDto dto)
         {
             Tx = tx;
             Dto = dto;
         }
 
-        public TransactionWithReceipt Tx { get; }
+        public TransactionReceiptVO Tx { get; }
         public TDto Dto { get; }
     }
 }

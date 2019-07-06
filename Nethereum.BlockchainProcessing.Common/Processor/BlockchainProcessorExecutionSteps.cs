@@ -1,15 +1,14 @@
-﻿using Nethereum.BlockProcessing.ValueObjects;
-using Nethereum.RPC.Eth.DTOs;
+﻿using Nethereum.RPC.Eth.DTOs;
 
 namespace Nethereum.BlockchainProcessing.Common.Processing
 {
     public class BlockchainProcessorExecutionSteps
     {
         public IProcessor<Block> BlockStepProcessor = new Processor<Block>();
-        public IProcessor<TransactionWithBlock> TransactionStepProcessor = new Processor<TransactionWithBlock>();
-        public IProcessor<TransactionWithReceipt> TransactionReceiptStepProcessor = new Processor<TransactionWithReceipt>();
-        public IProcessor<LogWithReceiptAndTransaction> FilterLogStepProcesor = new Processor<LogWithReceiptAndTransaction>();
-        public IProcessor<ContractCreationTransaction> ContractCreationStepProcessor = new Processor<ContractCreationTransaction>();
+        public IProcessor<TransactionVO> TransactionStepProcessor = new Processor<TransactionVO>();
+        public IProcessor<TransactionReceiptVO> TransactionReceiptStepProcessor = new Processor<TransactionReceiptVO>();
+        public IProcessor<FilterLogVO> FilterLogStepProcesor = new Processor<FilterLogVO>();
+        public IProcessor<ContractCreationVO> ContractCreationStepProcessor = new Processor<ContractCreationVO>();
         public virtual IProcessor<T>  GetStep<T>()
         {
             var type = typeof(T);
@@ -17,19 +16,19 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
             {
                 return (IProcessor<T>)BlockStepProcessor;
             }
-            else if (type == typeof(TransactionWithBlock))
+            else if (type == typeof(TransactionVO))
             {
                 return (IProcessor<T>)TransactionStepProcessor;
             }
-            else if (type == typeof(TransactionWithReceipt))
+            else if (type == typeof(TransactionReceiptVO))
             {
                 return (IProcessor<T>)TransactionReceiptStepProcessor;
             }
-            else if (type == typeof(LogWithReceiptAndTransaction))
+            else if (type == typeof(FilterLogVO))
             {
                 return (IProcessor<T>)FilterLogStepProcesor;
             }
-            else if (type == typeof(ContractCreationTransaction))
+            else if (type == typeof(ContractCreationVO))
             {
                 return (IProcessor<T>)ContractCreationStepProcessor;
             }

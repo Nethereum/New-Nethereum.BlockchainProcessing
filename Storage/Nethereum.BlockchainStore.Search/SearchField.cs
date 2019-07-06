@@ -50,7 +50,7 @@ namespace Nethereum.BlockchainStore.Search
 
         public Func<FilterLog, object> LogValueCallback { get; set; }
 
-        public Func<TransactionWithReceipt, object> TxValueCallback { get; set; }
+        public Func<TransactionReceiptVO, object> TxValueCallback { get; set; }
 
         public object GetValue(object dto)
         {

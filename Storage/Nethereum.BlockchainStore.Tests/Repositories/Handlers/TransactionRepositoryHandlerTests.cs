@@ -33,7 +33,7 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
         {
             var tx = CreateTransaction();
             var receipt = CreateReceipt();
-            TransactionWithReceipt txWithReceipt = CreateTransactionWithReceipt(tx, receipt);
+            TransactionReceiptVO txWithReceipt = CreateTransactionWithReceipt(tx, receipt);
 
             SetUpTransactionRepoUpsert(txWithReceipt);
             SetupAddressUpsert(txWithReceipt, tx.From, tx.To, LogAddress1, LogAddress2);
@@ -64,9 +64,9 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
             Assert.Equal(5, _addressRepoUpsertCount);
         }
 
-        private static TransactionWithReceipt CreateTransactionWithReceipt(Transaction tx, TransactionReceipt receipt)
+        private static TransactionReceiptVO CreateTransactionWithReceipt(Transaction tx, TransactionReceipt receipt)
         {
-            return new TransactionWithReceipt(
+            return new TransactionReceiptVO(
                 tx, receipt, false,
                 new HexBigInteger(0), null, false);
         }
@@ -91,9 +91,9 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
             };
         }
 
-        private static ContractCreationTransaction CreateContractCreationTransaction(string ContractAddress, string Code, Transaction tx, TransactionReceipt receipt)
+        private static ContractCreationVO CreateContractCreationTransaction(string ContractAddress, string Code, Transaction tx, TransactionReceipt receipt)
         {
-            return new ContractCreationTransaction(
+            return new ContractCreationVO(
                 ContractAddress, Code, tx, receipt, false, new HexBigInteger(0));
         }
 
@@ -109,7 +109,7 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
             };
         }
 
-        private void SetupAddressUpsert(TransactionWithReceipt txWithReceipt, params string[] expectedAddresses)
+        private void SetupAddressUpsert(TransactionReceiptVO txWithReceipt, params string[] expectedAddresses)
         {
             foreach (var address in expectedAddresses)
             {
@@ -125,7 +125,7 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
             }
         }
 
-        private void SetUpTransactionRepoUpsert(TransactionWithReceipt txWithReceipt)
+        private void SetUpTransactionRepoUpsert(TransactionReceiptVO txWithReceipt)
         {
             _transactionRepository
                 .Setup(t => t.UpsertAsync(
@@ -142,7 +142,7 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
                 });
         }
 
-        private void SetUpTransactionRepoUpsert(ContractCreationTransaction txWrapper)
+        private void SetUpTransactionRepoUpsert(ContractCreationVO txWrapper)
         {
             _transactionRepository
                 .Setup(t => t.UpsertAsync(
@@ -159,7 +159,7 @@ namespace Nethereum.BlockchainStore.Tests.Repositories.Handlers
                 });
         }
 
-        private void SetupAddressUpsert(ContractCreationTransaction txWrapper, params string[] expectedAddresses)
+        private void SetupAddressUpsert(ContractCreationVO txWrapper, params string[] expectedAddresses)
         {
             foreach (var address in expectedAddresses)
             {

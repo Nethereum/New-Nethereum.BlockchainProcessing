@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Common.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
-using Nethereum.BlockProcessing.ValueObjects;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 
@@ -16,8 +15,8 @@ namespace Nethereum.BlockchainProcessing.Processors
         protected IWeb3 Web3 { get; set; }
         public IEnumerable<BlockchainProcessorExecutionSteps> ExecutionStepsCollection { get; }
         protected BlockCrawlerStep BlockCrawlerStep { get; }
-        protected TransactionWithBlockCrawlerStep TransactionWithBlockCrawlerStep { get; }
-        protected TransactionWithReceiptCrawlerStep TransactionWithReceiptCrawlerStep { get; }
+        protected TransactionCrawlerStep TransactionWithBlockCrawlerStep { get; }
+        protected TransactionReceiptCrawlerStep TransactionWithReceiptCrawlerStep { get; }
         protected ContractCreatedCrawlerStep ContractCreatedCrawlerStep { get; }
 
         public BlockCrawlOrchestrator(IWeb3 web3, IEnumerable<BlockchainProcessorExecutionSteps> executionStepsCollection)
@@ -25,8 +24,8 @@ namespace Nethereum.BlockchainProcessing.Processors
             this.ExecutionStepsCollection = executionStepsCollection;
             Web3 = web3;
             BlockCrawlerStep = new BlockCrawlerStep(web3);
-            TransactionWithBlockCrawlerStep = new TransactionWithBlockCrawlerStep(web3);
-            TransactionWithReceiptCrawlerStep = new TransactionWithReceiptCrawlerStep(web3);
+            TransactionWithBlockCrawlerStep = new TransactionCrawlerStep(web3);
+            TransactionWithReceiptCrawlerStep = new TransactionReceiptCrawlerStep(web3);
             ContractCreatedCrawlerStep = new ContractCreatedCrawlerStep(web3);
         }
 
@@ -49,11 +48,11 @@ namespace Nethereum.BlockchainProcessing.Processors
         protected virtual async Task CrawlTransaction(CrawlerStepCompleted<BlockWithTransactions> completedStep, Transaction txn)
         {
             var currentStepCompleted = await TransactionWithBlockCrawlerStep.ExecuteStepAsync(
-                new TransactionWithBlock(txn, completedStep.StepData), completedStep.ExecutedStepsCollection);
+                new TransactionVO(txn, completedStep.StepData), completedStep.ExecutedStepsCollection);
             await CrawlTransactionReceipt(currentStepCompleted);
         }
 
-        protected virtual async Task CrawlTransactionReceipt(CrawlerStepCompleted<TransactionWithBlock> completedStep)
+        protected virtual async Task CrawlTransactionReceipt(CrawlerStepCompleted<TransactionVO> completedStep)
         {
            var currentStepCompleted = await TransactionWithReceiptCrawlerStep.ExecuteStepAsync(completedStep.StepData,
                 completedStep.ExecutedStepsCollection);

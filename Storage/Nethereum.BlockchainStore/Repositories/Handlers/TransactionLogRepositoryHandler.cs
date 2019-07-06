@@ -14,7 +14,7 @@ namespace Nethereum.BlockchainStore.Repositories.Handlers
 
         public ITransactionLogRepository TransactionLogRepository { get; }
 
-        public async Task HandleAsync(LogWithReceiptAndTransaction txLog)
+        public async Task HandleAsync(FilterLogVO txLog)
         {
             await TransactionLogRepository.UpsertAsync(
                 txLog.Log).ConfigureAwait(false);

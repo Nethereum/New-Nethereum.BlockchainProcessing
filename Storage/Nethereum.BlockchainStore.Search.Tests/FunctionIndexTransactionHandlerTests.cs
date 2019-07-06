@@ -21,8 +21,8 @@ namespace Nethereum.BlockchainStore.Search.Tests
             var indexer = new Mock<IFunctionIndexer<TestFunctionMessageDto>>();
             var handler = new FunctionIndexTransactionHandler<TestFunctionMessageDto>(indexer.Object, logsPerIndexBatch: 2);
 
-            var transaction1 = new Mock<TransactionWithReceipt>();
-            var transaction2 = new Mock<TransactionWithReceipt>();
+            var transaction1 = new Mock<TransactionReceiptVO>();
+            var transaction2 = new Mock<TransactionReceiptVO>();
 
             var dto1 = new TestFunctionMessageDto();
             var dto2 = new TestFunctionMessageDto();
@@ -54,7 +54,7 @@ namespace Nethereum.BlockchainStore.Search.Tests
                 new FunctionIndexTransactionHandler<TestFunctionMessageDto>(indexer.Object, logsPerIndexBatch: 2))
             {
 
-                var transaction1 = new Mock<TransactionWithReceipt>();
+                var transaction1 = new Mock<TransactionReceiptVO>();
                 var dto1 = new TestFunctionMessageDto();
 
                 transaction1.Setup(t => t.IsForFunction<TestFunctionMessageDto>()).Returns(true);
@@ -74,7 +74,7 @@ namespace Nethereum.BlockchainStore.Search.Tests
             var indexer = new Mock<IFunctionIndexer<TestFunctionMessageDto>>();
             var handler = new FunctionIndexTransactionHandler<TestFunctionMessageDto>(indexer.Object, logsPerIndexBatch: 1);
 
-            var transaction1 = new Mock<TransactionWithReceipt>();
+            var transaction1 = new Mock<TransactionReceiptVO>();
 
             transaction1.Setup(t => t.IsForFunction<TestFunctionMessageDto>()).Returns(false);
 

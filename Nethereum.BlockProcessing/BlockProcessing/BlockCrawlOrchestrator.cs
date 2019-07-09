@@ -7,9 +7,20 @@ using Nethereum.BlockchainProcessing.Common.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
+using System.Linq;
 
 namespace Nethereum.BlockchainProcessing.Processors
 {
+
+    // var x = web3.Eth.Processing.CreateBlockProcessor(Steps);
+    // x = web3.Eth.Processing.CreateStorageBlockProcessor(AzureAdapter, AzureProgress)
+    // x.Steps.BlockStep.AddHandler(
+    //
+    // var processing = new Processing(1, 100)
+    // processing.TransactionStep.SetStepMatchingCriteria(x = > x == true);
+    // processing.TransactionStep.AddHandler(x = > Save(x), IsForMe()); 
+
+
     public class BlockCrawlOrchestrator: IBlockchainProcessingOrchestrator
     {
         protected IWeb3 Web3 { get; set; }
@@ -21,6 +32,7 @@ namespace Nethereum.BlockchainProcessing.Processors
 
         public BlockCrawlOrchestrator(IWeb3 web3, IEnumerable<BlockchainProcessorExecutionSteps> executionStepsCollection)
         {
+            
             this.ExecutionStepsCollection = executionStepsCollection;
             Web3 = web3;
             BlockCrawlerStep = new BlockCrawlerStep(web3);

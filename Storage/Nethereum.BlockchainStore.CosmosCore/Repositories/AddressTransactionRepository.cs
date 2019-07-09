@@ -10,6 +10,7 @@ using Nethereum.BlockchainStore.Entities.Mapping;
 
 namespace Nethereum.BlockchainStore.CosmosCore.Repositories
 {
+   
     public class AddressTransactionRepository : CosmosRepositoryBase, IAddressTransactionRepository
     {
         public AddressTransactionRepository(DocumentClient client, string databaseName) : base(client, databaseName, CosmosCollectionName.AddressTransactions)
